@@ -5,13 +5,13 @@ dotenv.config();
 
 const USERNAME = process.env.DB_USERNAME;
 const PASSWORD = process.env.DB_PASSWORD;
-const cluster = process.env.MONGODB_cluster;
+const DB_URL = process.env.MONGODB_URL;
 
 const Connection = () => {
-    const MONGODB_URI = `mongodb+srv://${USERNAME}:${PASSWORD}@${cluster}.cjylz.mongodb.net/`
-   
+    const MONGODB_URL = DB_URL
+    
 
-    mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+    mongoose.connect(MONGODB_URL, { useNewUrlParser: true });
 
     mongoose.connection.on('connected', () => {
         console.log('Database connected Successfully');
