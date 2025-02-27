@@ -5,6 +5,11 @@ import bodyParser from 'body-parser';
 import Connection from './database/db.js';
 import Routes from './routes/route.js';
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+
 const app = express();
 
 
@@ -15,8 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/', Routes);
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => console.log(`Server is running on PORT ${PORT}`));
 
 Connection();
 
-app.listen(PORT, () => console.log(`Your server is running successfully on PORT ${PORT}`));
+// app.listen(PORT, () => console.log(`Your server is running successfully on PORT ${PORT}`));

@@ -5,10 +5,11 @@ dotenv.config();
 
 const USERNAME = process.env.DB_USERNAME;
 const PASSWORD = process.env.DB_PASSWORD;
+const cluster = process.env.MONGODB_cluster;
 
 const Connection = () => {
-    const MONGODB_URI = `mongodb+srv://${USERNAME}:${PASSWORD}@bhaskar-projects.cjylz.mongodb.net/`
-   // const MONGODB_URI = `mongodb://:@ac-hphkfqv-shard-00-00.bmuzxat.mongodb.net:27017,ac-hphkfqv-shard-00-01.bmuzxat.mongodb.net:27017,ac-hphkfqv-shard-00-02.bmuzxat.mongodb.net:27017/?ssl=true&replicaSet=atlas-ifygh4-shard-0&authSource=admin&retryWrites=true&w=majority`;
+    const MONGODB_URI = `mongodb+srv://${USERNAME}:${PASSWORD}@${cluster}.cjylz.mongodb.net/`
+   
 
     mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
@@ -20,7 +21,7 @@ const Connection = () => {
         console.log('Database disconnected');
     })
 
-    mongoose.connection.on('error', () => {
+    mongoose.connection.on('error', (error) => {
         console.log('Error while connecting with the database ', error.message);
     })
 }
